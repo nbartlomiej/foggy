@@ -1,3 +1,9 @@
+// Foggy, v1.02
+//
+// Description: jQuery plugin for blurring page elements
+// Homepage:    http://nbartlomiej.github.com/foggy
+// Author:      nbartlomiej@gmail.com
+
 (function( $ ){
 
   $.fn.foggy = function( options ) {
