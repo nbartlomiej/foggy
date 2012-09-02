@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>When it's foggy, things are blurred</title>
+    <script type='text/javascript' src='./media/jquery-1.8.1.min.js'></script>
+    <script type='text/javascript' src='jquery.foggy.js'></script>
+    <link rel="stylesheet" href="media/blueprint/screen.css" type="text/css" media="screen, projection">
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" href="media/blueprint/ie.css" type="text/css" media="screen, projection">
+    <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Oranienbaum' rel='stylesheet' type='text/css'>
+    <style type='text/css'>
+      body {
+        font-size: 20px;
+        color: #444;
+      }
+      a {
+        color: #999;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #777;
+      }
+      pre {
+        color: #999;
+      }
+      h1 {
+        color: #444;
+        font-size: 50px;
+      }
+      .container {
+        padding-top: 50px;
+      }
+      .oranienbaum { font-family: 'Oranienbaum', serif }
+      .section { margin-bottom: 30px; }
+      .foggy-comparison-wrapper { position: relative; }
+      .foggy-comparison {
+        position: absolute;
+        z-index: 2;
+        width: 350px;
+        background: #FFF;
+        padding: 20px;
+        top: 80px;
+        left: 280px;
+        text-align: justify;
+        box-shadow: rgba(0,0,0,0.5) 0px 0px 15px;
+      }
+      .foggy-demo {
+        text-align: justify;
+      }
+      .upper-pre, .lower-pre { color: #555; }
+      .upper-pre , .inner-pre { margin-bottom: 0px }
+      .lower-pre , .inner-pre { margin-top: 0px }
+    </style>
+    <script type='text/javascript'>
+      $(document).ready( function(){
+        $('.foggy-demo').foggy();
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class='container'>
+      <div class='section span-24'>
+        <h1 class='oranienbaum'>Foggy</h1>
+        <p>Foggy is a jQuery plugin for blurring page elements.</p>
+      </div>
+      <div class='section span-24'>
+        <div class='span-24'>
+          <div class='foggy-comparison-wrapper'>
+            <div class='foggy-comparison'>
+              Here, both paragraph text and image in the background have been blurred with Foggy.
+            </div>
+          </div>
+        </div>
+        <div class='foggy-demo'>
+          <div class='span-24'>
+            <h3>The foggy demonstration</h3>
+          </div>
+          <div class='span-15 append-1'>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit. Duis commodo massa viverra diam pharetra quis
+              dictum mauris bibendum. In eget tortor id risus
+              suscipit facilisis. Duis luctus tortor non sem mollis
+              sodales. Cras et cursus justo. Phasellus vel libero
+              erat, vel mattis justo. Aenean tempor bibendum
+              euismod. Vivamus erat justo, lacinia vitae facilisis
+              quis, luctus sed mauris. Suspendisse lectus dolor,
+              accumsan eu lacinia in, dapibus vitae nunc.
+            </p>
+          </div>
+          <div class='span-8 last'>
+            <img src='http://i.imgur.com/yv9UM.jpg' alt='sample image'></img>
+          </div>
+        </div>
+      </div>
+      <div class='section span-24'>
+        <h3>Usage</h3>
+        <ol>
+          <li>
+            Invoke with standard options
+            <pre> $('.your-selector').foggy(); </pre>
+          </li>
+          <li>
+            Tailor the fog according to your needs
+            <pre class='upper-pre foggy-demo'> $('.your-selector').foggy({ </pre>
+            <pre class='inner-pre'>   blurRadius: 1, opacity: 0.8 </pre>
+            <pre class='lower-pre foggy-demo'> }); </pre>
+          </li>
+        </ol>
+      </div>
+      <div class='section span-24'>
+        <h3>Download</h3>
+        <p>
+        <a href='http://github.com/nbartlomiej/foggy/jquery.foggy.min.js' target='_blank'>
+          http://github.com/nbartlomiej/foggy/jquery.foggy.min.js
+        </a>
+        </p>
+          MIT License
+        </p>
+      </div>
+      <div class='section span-24'>
+        <h3>How it works</h3>
+        <p>
+          Foggy makes copies of a selected HTML element. It adds a little transparency to all copies and moves each of them by small amount, thus creating the blur effect.
+        </p>
+        <p>
+        For details, open this page in a web inspector, or view the Foggy source at GitHub: <br/>
+        <a href='http://github.com/nbartlomiej/foggy/' target='_blank'>
+          http://github.com/nbartlomiej/foggy/
+        </a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
