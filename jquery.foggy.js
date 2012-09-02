@@ -3,7 +3,7 @@
   $.fn.foggy = function( options ) {
 
     var settings = $.extend( {
-      'opacity'         : 0.8
+      'opacity' : 0.8
     }, options);
 
     return this.each(function(index, element) {
@@ -17,15 +17,13 @@
         position: 'relative'
       });
 
-      var renderPass = function(content, position, offset, opacity, wrapper){
-        $('<div/>', {
-          html: original_content
-        }).css({
+      var renderPass = function(content, position, offset, opacity, target){
+        $('<div/>', { html: content }).css({
           position: position,
-          opacity: ''+(opacity/offsets.length),
+          opacity: opacity,
           top: offset[0],
           left: offset[1]
-        }).appendTo(wrapper);
+        }).appendTo(target);
       }
 
       var offsets = [
