@@ -3,7 +3,9 @@
   $.fn.foggy = function( options ) {
 
     var settings = $.extend( {
-      'opacity' : 0.8
+      'opacity': 0.5,
+      'blurRadius' : 2,
+      'quality': 16
     }, options);
 
     var BlurPass = function(content, position, offset, opacity){
@@ -22,6 +24,30 @@
       }).appendTo(target);
     };
 
+    var Circle = function(radius){
+      this.radius = radius;
+    };
+
+    Circle.prototype.includes = function(x,y){
+      if (Math.pow(x,2) + Math.pow(y,2) <= Math.pow(this.radius, 2)){
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    Circle.prototype.points = function(){
+      var results = [];
+      for (var x = -this.radius; x<=this.radius; x++){
+        for (var y = -this.radius; y<=this.radius; y++){
+          if (this.includes(x,y)){
+            results.push([x,y]);
+          }
+        }
+      }
+      return results;
+    };
+
     return this.each(function(index, element) {
 
       var content = $(element).html();
@@ -33,9 +59,27 @@
         position: 'relative'
       });
 
-      var offsets = [
-        [-1,-1], [-1,1], [1,-1], [1,1]
-      ];
+      var all_offsets = $.grep(
+        new Circle(settings.blurRadius).points(),
+        function(element){ return (element[0] != 0) || (element[1] != 0) }
+      );
+
+      if (all_offsets.length <= settings.quality){
+        offsets = all_offsets;
+      } else {
+        var overhead = all_offsets.length - settings.quality;
+        var targets = [];
+        for (var i = 0; i < overhead; i++){
+          targets.push(Math.round(i * (all_offsets.length / overhead)));
+        }
+        offsets = $.grep( all_offsets, function(element, index){
+          if (targets.indexOf(index) >= 0){
+            return false;
+          } else {
+            return true;
+          }
+        });
+      }
 
       var opacity = (settings.opacity * 2) / (offsets.length + 1);
 
