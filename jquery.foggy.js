@@ -6,9 +6,25 @@
       'opacity' : 0.8
     }, options);
 
+    var BlurPass = function(content, position, offset, opacity){
+      this.content = content;
+      this.position = position;
+      this.offset = offset;
+      this.opacity = opacity;
+    };
+
+    BlurPass.prototype.render = function(target){
+      $('<div/>', { html: this.content }).css({
+        position: this.position,
+        opacity: this.opacity,
+        top: this.offset[0],
+        left: this.offset[1]
+      }).appendTo(target);
+    };
+
     return this.each(function(index, element) {
 
-      var original_content = $(element).html();
+      var content = $(element).html();
 
       $(element).html('');
 
@@ -17,24 +33,16 @@
         position: 'relative'
       });
 
-      var renderPass = function(content, position, offset, opacity, target){
-        $('<div/>', { html: content }).css({
-          position: position,
-          opacity: opacity,
-          top: offset[0],
-          left: offset[1]
-        }).appendTo(target);
-      }
-
       var offsets = [
         [-1,-1], [-1,1], [1,-1], [1,1]
       ];
 
       var opacity = (settings.opacity * 2) / (offsets.length + 1);
 
-      renderPass(original_content, 'relative', [0,0], opacity, wrapper);
+      new BlurPass(content, 'relative', [0,0], opacity).render(wrapper);
+
       $(offsets).each(function(index, offset){
-        renderPass(original_content, 'absolute', offset, opacity, wrapper);
+        new BlurPass(content, 'absolute', offset, opacity).render(wrapper);
       });
 
       wrapper.appendTo(element);
