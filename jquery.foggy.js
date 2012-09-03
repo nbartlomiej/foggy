@@ -12,7 +12,7 @@
       opacity:      0.8,
       blurRadius:   2,
       quality:      16,
-      cssFilterSupport: false
+      cssFilterSupport: true
     }, options);
 
     var BlurPass = function(content, position, offset, opacity){
@@ -114,7 +114,7 @@
     }
 
     return this.each(function(index, element) {
-      if (settings.useCssFilter && '-webkit-filter' in document.body.style){
+      if (settings.cssFilterSupport && '-webkit-filter' in document.body.style){
         new FilterFog(element, settings).render();
       } else {
         new ManualFog(element, settings).render();
