@@ -32,13 +32,13 @@
         padding-top: 50px;
       }
       .oranienbaum { font-family: 'Oranienbaum', serif }
-      .section { margin-bottom: 30px; }
+      .section { margin-bottom: 50px; }
       .foggy-comparison-wrapper { position: relative; }
       .foggy-comparison {
         position: absolute;
         z-index: 2;
         width: 350px;
-        background: #FFF;
+        background: #AFA;
         padding: 20px;
         top: 80px;
         left: 280px;
@@ -51,12 +51,35 @@
       .upper-pre, .lower-pre { color: #555; }
       .upper-pre , .inner-pre { margin-bottom: 0px }
       .lower-pre , .inner-pre { margin-top: 0px }
+      .parameter-description {
+        color: #CCC;
+      }
+      .foggy-comparison-manual-wrapper { position: relative; }
+      .foggy-comparison-manual {
+        position: absolute;
+        z-index: 2;
+        width: 350px;
+        background: #AAF;
+        padding: 20px;
+        top: 50px;
+        left: 280px;
+        text-align: justify;
+        box-shadow: rgba(0,0,0,0.5) 0px 0px 15px;
+      }
+      .foggy-demo-manual {
+        text-align: justify;
+      }
 
       .twitter { padding-top: 3px; }
     </style>
     <script type='text/javascript'>
       $(document).ready( function(){
         $('.foggy-demo').foggy();
+      });
+      $(document).ready( function(){
+        $('.foggy-demo-manual').foggy({
+          cssFilterSupport: false
+        });
       });
     </script>
   </head>
@@ -66,7 +89,9 @@
     <div class='container'>
       <div class='section span-24'>
         <h1 class='oranienbaum'>Foggy</h1>
-        <p>Foggy is a jQuery plugin for blurring page elements.</p>
+        <p>Foggy is a jQuery plugin for blurring page elements.
+        <br/>
+        It supports IE (X and up), Firefox, Safari and Chrome.</p>
       </div>
       <div class='section span-24'>
         <div class='span-24'>
@@ -100,18 +125,11 @@
       </div>
       <div class='section span-24'>
         <h3>Usage</h3>
-        <ol>
-          <li>
-            Invoke with standard options
-            <pre> $('.your-selector').foggy(); </pre>
-          </li>
-          <li>
-            Tailor the fog according to your needs
-            <pre class='upper-pre foggy-demo'> $('.your-selector').foggy({ </pre>
-            <pre class='inner-pre'>   blurRadius: 2, opacity: 0.5 </pre>
-            <pre class='lower-pre foggy-demo'> }); </pre>
-          </li>
-        </ol>
+<pre> $('.your-selector').foggy({
+   blurRadius: 1,          <span class='parameter-description'>// In pixels.</span>
+   opacity: 0.8,           <span class='parameter-description'>// Falls back to a filter for IE.</span>
+   cssFilterSupport: true  <span class='parameter-description'>// Use <a href='http://caniuse.com/#feat=css-filters' target='_blank'>"-webkit-filter"</a> where available.</span>
+ }); </pre>
       </div>
       <div class='section span-24'>
         <h3>Download</h3>
@@ -124,8 +142,42 @@
       <div class='section span-24'>
         <h3>How it works</h3>
         <p>
-          Foggy makes copies of the selected HTML element. It adds a little transparency to all copies and moves each of them by small amount, thus creating the blur effect.
+          Foggy by default uses the 
+          <a href='http://caniuse.com/#feat=css-filters' target='_blank'>"-webkit-filter: blur"</a>
+          CSS attribute.
         </p>
+        <p>
+          If the browser doesn't support it, Foggy falls back to a manual
+          blur. It makes several copies of the selected HTML element.
+          It adds transparency to all copies and moves each of them by
+          small amount, thus creating the blur effect. 
+        </p>
+      </div>
+      <div class='section span-24'>
+        <div class='foggy-comparison-manual-wrapper'>
+          <div class='foggy-comparison-manual'>
+            This is an example with forced manual mode; open it in your web inspector to see details.
+          </div>
+        </div>
+        <div class='foggy-demo-manual'>
+          <div class='span-24'>
+            <div class='span-16'>
+              <h3>The foggy demo, manual mode</h3>
+              <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing
+                  elit. Duis commodo massa viverra diam pharetra quis
+                  dictum mauris bibendum. In eget tortor id risus
+                  suscipit facilisis. Duis luctus tortor non sem mollis
+                  sodales. Cras et cursus justo. Phasellus vel libero
+                  erat, vel mattis justo. Aenean tempor bibendum
+                  euismod. Vivamus erat.
+              </p>
+            </div>
+            <div class='span-8 last'>
+              <img src='http://i.imgur.com/VhIrR.jpg' alt='Sample image'>
+            </div>
+          </div>
+        </div>
       </div>
       <div class='section span-24'>
         <h3>Social fog</h3>
@@ -134,11 +186,19 @@
           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
         <div class='span-21 last'>
-          + &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://github.com/nbartlomiej/foggy' target='_blank'>
+          &amp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='http://github.com/nbartlomiej/foggy' target='_blank'>
             http://github.com/nbartlomiej/foggy
           </a>
 
         </div>
+      </div>
+      <div class='section span-24'>
+        <h3>Author</h3>
+        <p>Foggy has been made by nbartlomiej. Read
+        <a href='http://nbartlomiej.com' target='_blank'>my blog</a>
+        or
+        <a href='http://twitter.com/nbartlomiej' target='_blank'>follow me on Twitter</a> !
+        </p>
       </div>
     </div>
   </body>
