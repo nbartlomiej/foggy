@@ -9,9 +9,10 @@
   $.fn.foggy = function( options ) {
 
     var settings = $.extend( {
-      'opacity': 0.5,
-      'blurRadius' : 2,
-      'quality': 16
+      opacity:      0.8,
+      blurRadius:   2,
+      quality:      16,
+      cssFilterSupport: false
     }, options);
 
     var BlurPass = function(content, position, offset, opacity){
@@ -54,26 +55,21 @@
       return results;
     };
 
-    return this.each(function(index, element) {
+    var ManualFog = function(element, settings){
+      this.element = element;
+      this.settings = settings;
+    };
 
-      var content = $(element).html();
-
-      $(element).html('');
-
-      var wrapper = $('<div/>', {
-      }).css({
-        position: 'relative'
-      });
-
+    ManualFog.prototype.calculateOffsets = function(radius, quality){
       var all_offsets = $.grep(
-        new Circle(settings.blurRadius).points(),
+        new Circle(radius+1).points(),
         function(element){ return (element[0] != 0) || (element[1] != 0) }
       );
-
-      if (all_offsets.length <= settings.quality){
+      var offsets;
+      if (all_offsets.length <= quality){
         offsets = all_offsets;
       } else {
-        var overhead = all_offsets.length - settings.quality;
+        var overhead = all_offsets.length - quality;
         var targets = [];
         for (var i = 0; i < overhead; i++){
           targets.push(Math.round(i * (all_offsets.length / overhead)));
@@ -86,17 +82,43 @@
           }
         });
       }
+      return offsets;
+    };
 
-      var opacity = (settings.opacity * 2) / (offsets.length + 1);
-
+    ManualFog.prototype.render = function(){
+      var content = $(this.element).html();
+      $(this.element).html('');
+      var wrapper = $('<div/>').css({ position: 'relative' });
+      var offsets = this.calculateOffsets(
+        this.settings.blurRadius, this.settings.quality
+      );
+      var opacity = (this.settings.opacity * 1.2) / (offsets.length + 1);
       new BlurPass(content, 'relative', [0,0], opacity).render(wrapper);
-
       $(offsets).each(function(index, offset){
         new BlurPass(content, 'absolute', offset, opacity).render(wrapper);
       });
+      wrapper.appendTo(this.element);
+    };
 
-      wrapper.appendTo(element);
+    var FilterFog = function(element, settings){
+      this.element = element;
+      this.settings = settings;
+    }
 
+    FilterFog.prototype.render = function(){
+      var opacityPercent = (''+settings.opacity).slice(2,4);
+      $(this.element).css({
+        '-webkit-filter': 'blur('+this.settings.blurRadius+'px)',
+        opacity: settings.opacity
+      });
+    }
+
+    return this.each(function(index, element) {
+      if (settings.useCssFilter && '-webkit-filter' in document.body.style){
+        new FilterFog(element, settings).render();
+      } else {
+        new ManualFog(element, settings).render();
+      }
     });
   };
 
