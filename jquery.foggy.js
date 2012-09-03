@@ -75,7 +75,7 @@
           targets.push(Math.round(i * (all_offsets.length / overhead)));
         }
         offsets = $.grep( all_offsets, function(element, index){
-          if (targets.indexOf(index) >= 0){
+          if ($.inArray(index, targets) >= 0){
             return false;
           } else {
             return true;
@@ -87,7 +87,7 @@
 
     ManualFog.prototype.render = function(){
       var content = $(this.element).html();
-      $(this.element).html('');
+      $(this.element).empty();
       var wrapper = $('<div/>').css({ position: 'relative' });
       var offsets = this.calculateOffsets(
         this.settings.blurRadius, this.settings.quality
