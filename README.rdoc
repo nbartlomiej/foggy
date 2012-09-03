@@ -1,0 +1,13 @@
+=Foggy
+
+==About
+
+Foggy is a jQuery plugin for blurring page elements.
+It supports IE (8 and up), Firefox, Safari and Chrome.
+
+Homepage and examples: http://nbartlomiej.github.com/foggy
+Blog post: http://nbartlomiej.com/2012/09/03/css-blur-effect-introducing-foggy
+
+==License
+
+MIT, see LICENSE file.
