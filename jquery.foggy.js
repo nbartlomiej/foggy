@@ -10,7 +10,7 @@
 
     var settings = $.extend( {
       opacity:      0.8,
-      blurRadius:   2,
+      blurRadius:   4,
       quality:      16,
       cssFilterSupport: true
     }, options);
@@ -64,7 +64,7 @@
 
     ManualFog.prototype.calculateOffsets = function(radius, quality){
       var all_offsets = $.grep(
-        new Circle(radius+1).points(),
+        new Circle(radius).points(),
         function(element){ return (element[0] != 0) || (element[1] != 0) }
       );
       var offsets;
@@ -118,8 +118,9 @@
 
     FilterFog.prototype.render = function(){
       var opacityPercent = (''+settings.opacity).slice(2,4);
+      var filterBlurRadius = this.settings.blurRadius /2;
       $(this.element).css({
-        '-webkit-filter': 'blur('+this.settings.blurRadius+'px)',
+        '-webkit-filter': 'blur('+filterBlurRadius+'px)',
         opacity: settings.opacity
       });
     }
