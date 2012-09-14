@@ -7,13 +7,25 @@
 (function( $ ){
 
   $.fn.foggy = function( options ) {
-
-    var settings = $.extend( {
+    var defaultOptions = {
       opacity:      0.8,
       blurRadius:   4,
       quality:      16,
       cssFilterSupport: true
-    }, options);
+    };
+
+    var noBlurOptions = {
+      opacity: 1,
+      blurRadius: 0
+    };
+
+    var settings;
+    if (options == false) {
+       settings = $.extend( defaultOptions, noBlurOptions );
+    } else {
+       settings = $.extend( defaultOptions, options);
+    }
+
 
     var BlurPass = function(content, position, offset, opacity){
       this.content = content;
