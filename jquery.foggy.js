@@ -23,7 +23,9 @@
     };
 
     BlurPass.prototype.render = function(target){
-      $('<div/>', { html: this.content }).css({
+      $('<div/>', {
+        html: this.content, class: 'foggy-pass-'+this.position
+      }).css({
         position: this.position,
         opacity: this.opacity,
         top: this.offset[0],
@@ -85,8 +87,17 @@
       return offsets;
     };
 
+    ManualFog.prototype.getContent = function(){
+      var candidate = $(this.element).find('.foggy-pass-relative')[0];
+      if (candidate){
+        return $(candidate).html();
+      } else {
+        return $(this.element).html();
+      }
+    };
+
     ManualFog.prototype.render = function(){
-      var content = $(this.element).html();
+      var content = this.getContent();
       $(this.element).empty();
       var wrapper = $('<div/>').css({ position: 'relative' });
       var offsets = this.calculateOffsets(
