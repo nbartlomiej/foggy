@@ -23,10 +23,16 @@
       }
       pre {
         color: #999;
+        clear: both;
       }
       h1 {
-        color: #444;
         font-size: 50px;
+      }
+      h1, h2, h3, h4, dt {
+        color: #444;
+      }
+      dt {
+        font-weight: bold;
       }
       .container {
         padding-top: 50px;
@@ -75,8 +81,6 @@
     <script type='text/javascript'>
       $(document).ready( function(){
         $('.foggy-demo').foggy();
-      });
-      $(document).ready( function(){
         $('.foggy-demo-manual').foggy({
           cssFilterSupport: false
         });
@@ -125,11 +129,21 @@
       </div>
       <div class='section span-24'>
         <h3>Usage</h3>
+        <dl>
+          <dt> Sensible defaults </dt>
+          <dd> <pre> $('.your-selector').foggy();</pre> </dd>
+
+          <dt>Customization</dt>
+          <dd>
 <pre> $('.your-selector').foggy({
    blurRadius: 4,          <span class='parameter-description'>// In pixels.</span>
    opacity: 0.8,           <span class='parameter-description'>// Falls back to a filter for IE.</span>
    cssFilterSupport: true  <span class='parameter-description'>// Use <a href='http://caniuse.com/#feat=css-filters' target='_blank'>"-webkit-filter"</a> where available.</span>
  }); </pre>
+          </dd>
+          <dt>Disabling</dt>
+          <dd> <pre> $('.your-selector').foggy(false);</pre> </dd>
+        </dl>
       </div>
       <div class='section span-24'>
         <h3>Download</h3>
