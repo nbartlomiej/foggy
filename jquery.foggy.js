@@ -9,7 +9,7 @@
   $.fn.foggy = function( options ) {
     var defaultOptions = {
       opacity:      0.8,
-      blurRadius:   4,
+      blurRadius:   2,
       quality:      16,
       cssFilterSupport: true
     };
@@ -113,7 +113,7 @@
       $(this.element).empty();
       var wrapper = $('<div/>').css({ position: 'relative' });
       var offsets = this.calculateOffsets(
-        this.settings.blurRadius, this.settings.quality
+        this.settings.blurRadius*2, this.settings.quality
       );
       var opacity = (this.settings.opacity * 1.2) / (offsets.length + 1);
       new BlurPass(content, 'relative', [0,0], opacity).render(wrapper);
@@ -130,7 +130,7 @@
 
     FilterFog.prototype.render = function(){
       var opacityPercent = (''+settings.opacity).slice(2,4);
-      var filterBlurRadius = this.settings.blurRadius /2;
+      var filterBlurRadius = this.settings.blurRadius;
       $(this.element).css({
         '-webkit-filter': 'blur('+filterBlurRadius+'px)',
         opacity: settings.opacity
