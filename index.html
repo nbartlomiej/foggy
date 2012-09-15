@@ -61,7 +61,13 @@
         color: #CCC;
       }
       .old-version , .old-version a {
-        color: #CCC;
+        color: #DDD;
+      }
+      .old-version a:hover {
+        color: #BBB;
+      }
+      table.versions tr td {
+        background: #FFF;
       }
       .foggy-comparison-manual-wrapper { position: relative; }
       .foggy-comparison-manual {
@@ -150,18 +156,26 @@
       </div>
       <div class='section span-24'>
         <h3>Download</h3>
-        <ul>
-          <li>Version 1.1, minified:
-            <a href='https://raw.github.com/nbartlomiej/foggy/foggy-1.1/jquery.foggy.min.js' target='_blank'>
-              jquery.foggy.min.js
-            </a>
-          </li>
-          <li class='old-version'>Version 1.02, minified:
-            <a href='https://raw.github.com/nbartlomiej/foggy/foggy-1.02/jquery.foggy.min.js' target='_blank'>
-              jquery.foggy.min.js
-            </a>
-          </li>
-        </ul>
+        <table class='versions'>
+          <tr>
+            <td>Version 1.1</td>
+            <td>
+              <a href='https://raw.github.com/nbartlomiej/foggy/foggy-1.1/jquery.foggy.min.js' target='_blank'>
+                jquery.foggy.min.js
+              </a>
+            </td>
+            <td>2012-09-15</td>
+          </tr>
+          <tr class='old-version'>
+            <td>Version 1.02</td>
+            <td>
+              <a href='https://raw.github.com/nbartlomiej/foggy/foggy-1.02/jquery.foggy.min.js' target='_blank'>
+                jquery.foggy.min.js
+              </a>
+            </td>
+            <td>2012-09-03</td>
+          </tr>
+        </table>
       </div>
       <div class='section span-24'>
         <h3>How it works</h3>
