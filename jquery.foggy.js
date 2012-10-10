@@ -35,9 +35,7 @@
     };
 
     BlurPass.prototype.render = function(target){
-      $('<div/>', {
-        html: this.content, class: 'foggy-pass-'+this.position
-      }).css({
+      $(this.content).attr('class', 'foggy-pass-'+this.position).css({
         position: this.position,
         opacity: this.opacity,
         top: this.offset[0],
@@ -99,12 +97,14 @@
       return offsets;
     };
 
+    // Not really gets content anymore, it now returns content's clone.
+    // TODO: Rename / refactor.
     ManualFog.prototype.getContent = function(){
       var candidate = $(this.element).find('.foggy-pass-relative')[0];
       if (candidate){
-        return $(candidate).html();
+        return $(candidate).clone(true);
       } else {
-        return $(this.element).html();
+        return $(this.element).clone(true);
       }
     };
 
@@ -116,9 +116,13 @@
         this.settings.blurRadius*2, this.settings.quality
       );
       var opacity = (this.settings.opacity * 1.2) / (offsets.length + 1);
-      new BlurPass(content, 'relative', [0,0], opacity).render(wrapper);
+      new BlurPass(
+        content.clone(true), 'relative', [0,0], opacity
+      ).render(wrapper);
       $(offsets).each(function(index, offset){
-        new BlurPass(content, 'absolute', offset, opacity).render(wrapper);
+        new BlurPass(
+          content.clone(true), 'absolute', offset, opacity
+        ).render(wrapper);
       });
       wrapper.appendTo(this.element);
     };
