@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <script type="text/javascript" src="./../media/jquery-1.8.1.min.js" language="javascript"></script>
+    <script type="text/javascript" src="./../jquery.foggy.js" language="javascript"></script>
+    <title>New Page 1</title>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#button').click(function(){
+          alert("Button Alert");
+        });
+      });
+    </script>
+    <style>
+      .something {
+        background: #aab;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="1">
+      <div id="2" class='something'>
+        <input id="button" type="button" value="Alert Button">
+        <input id="button" type="button" value="Button with onclick" onclick="alert('onclick event has been triggered');">
+        <div>
+          <p>
+          <img src="face-image.png" width="613" height="122"/>
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+          It has survived not only five centuries, but also the leap into electronic typesetting, 
+          remaining essentially unchanged. It was popularised in the 1960s with the release of 
+          Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing 
+          software like Aldus PageMaker including versions of Lorem Ipsum.
+          </p>
+        </div>
+      </div>
+      <br/><br/><br/><br/>
+      <input id="apply-foggy" type="button" value="Apply Foggy Blur" onclick="$('#2').foggy({quality:14, blurRadius:10});" />
+      <input id="remove-foggy" type="button" value="Remove Foggy Blur" onclick="$('#2').foggy(false);" />
+    </div>
+  </body>
+
+</html>
