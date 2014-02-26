@@ -36,7 +36,7 @@
 
     BlurPass.prototype.render = function(target){
       $('<div/>', {
-        html: this.content, class: 'foggy-pass-'+this.position
+        html: this.content, 'class': 'foggy-pass-'+this.position
       }).css({
         position: this.position,
         opacity: this.opacity,
