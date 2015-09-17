@@ -132,9 +132,9 @@
       var opacityPercent = (''+settings.opacity).slice(2,4);
       var filterBlurRadius = this.settings.blurRadius;
       $(this.element).css({
-        '-webkit-filter': 'blur('+filterBlurRadius+'px)',
-        '-moz-filter': 'blur('+filterBlurRadius+'px)',
-         'filter': 'blur('+filterBlurRadius+'px)',
+        '-webkit-filter': (filterBlurRadius < 1) ? 'none' : 'blur('+filterBlurRadius+'px)',
+        '-moz-filter': (filterBlurRadius < 1) ? 'none' : 'blur('+filterBlurRadius+'px)',
+         'filter': (filterBlurRadius < 1) ? 'none' : 'blur('+filterBlurRadius+'px)',
         opacity: settings.opacity
       });
     }
