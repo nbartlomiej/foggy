@@ -11,7 +11,8 @@
 			opacity : 0.8,
 			blurRadius : 2,
 			quality : 16,
-			cssFilterSupport : true
+			cssFilterSupport : true, 
+			duration : 0
 		};
 
 		var noBlurOptions = {
@@ -36,12 +37,12 @@
 		BlurPass.prototype.render = function(target) {
 			$('<div/>', {
 				html : this.content,
-				'class' : 'foggy-pass-' + this.position
+				'class' : 'foggy-pass foggy-pass-' + this.position
 			}).css({
 				position : this.position,
-				opacity : this.opacity,
 				top : this.offset[0],
-				left : this.offset[1]
+				left : this.offset[1], 
+				opacity : (duration !== 0) ? 0 : this.opacity
 			}).appendTo(target);
 		};
 
@@ -151,7 +152,7 @@
 								: 'blur(' + filterBlurRadius + 'px)',
 						'filter' : (filterBlurRadius < 1) ? 'none' : 'blur('
 								+ filterBlurRadius + 'px)',
-						opacity : settings.opacity
+						opacity : (settings.duration !== 0) ? 0 : settings.opacity
 					});
 		}
 
