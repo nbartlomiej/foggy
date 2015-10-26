@@ -42,8 +42,8 @@
 				position : this.position,
 				top : this.offset[0],
 				left : this.offset[1], 
-				opacity : (duration !== 0) ? 0 : this.opacity
-			}).appendTo(target);
+				opacity : (settings.duration !== 0) ? 0 : this.opacity
+			}).appendTo(target).animate({opacity: this.opacity}, settings.duration);
 		};
 
 		var Circle = function(radius) {
@@ -132,7 +132,9 @@
 			if (this.settings.blurRadius === 0) {
 				//Refresh the content. 
 				content = this.getContent();
-				$(this.element).empty().append(content);
+				var $element = $(this.element); 
+				$element.find('.foggy-positon-absolute').animate({opacity: 0}, settings.duration);
+				$element.empty().append(content);
 			}
 		};
 
@@ -144,16 +146,44 @@
 		FilterFog.prototype.render = function() {
 			var opacityPercent = ('' + settings.opacity).slice(2, 4);
 			var filterBlurRadius = this.settings.blurRadius;
-			$(this.element).css(
+			var $element = $(this.element);
+			if (settings.duration === 0) {
+			$element.css(
 					{
-						'-webkit-filter' : (filterBlurRadius < 1) ? 'none'
+						'-webkit-filter' : (filterBlurRadius === 0) ? 'none'
 								: 'blur(' + filterBlurRadius + 'px)',
-						'-moz-filter' : (filterBlurRadius < 1) ? 'none'
+						'-moz-filter' : (filterBlurRadius === 0) ? 'none'
 								: 'blur(' + filterBlurRadius + 'px)',
-						'filter' : (filterBlurRadius < 1) ? 'none' : 'blur('
+						'filter' : (filterBlurRadius === 0) ? 'none' : 'blur('
 								+ filterBlurRadius + 'px)',
-						opacity : (settings.duration !== 0) ? 0 : settings.opacity
+						opacity : settings.opacity
 					});
+			} else {
+				$element.animate({opacity: settings.opacity}, settings.duration);
+				if (filterBlurRadius !== 0) {
+					$element.attr('data-start-blur', filterBlurRadius);
+					var startBlurRadius = 0;
+				} else {
+					var startBlurRadius = $element.data('start-blur');
+				}
+				
+				$({blurRadius: startBlurRadius}).animate({blurRadius: filterBlurRadius}, {
+					duration: settings.duration,
+					step: function() {
+						var blurRadius = this.blurRadius;
+						$element.css(
+								{
+									'-webkit-filter' : (blurRadius === 0) ? 'none'
+											: 'blur(' + blurRadius + 'px)',
+									'-moz-filter' : (blurRadius === 0) ? 'none'
+											: 'blur(' + blurRadius + 'px)',
+									'filter' : (blurRadius === 0) ? 'none' : 'blur('
+											+ blurRadius + 'px)'
+								}
+							);
+					}
+				});
+			}
 		}
 
 		return this.each(function(index, element) {
