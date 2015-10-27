@@ -41,7 +41,8 @@
 				position : this.position,
 				opacity : this.opacity,
 				top : this.offset[0],
-				left : this.offset[1]
+				left : this.offset[1], 
+				width : '100%'
 			}).appendTo(target);
 		};
 
